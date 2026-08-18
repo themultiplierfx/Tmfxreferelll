@@ -1,60 +1,53 @@
-<!-- REPLACE YOUR FULL VERSION WITH THIS - ADDED REFERRAL BOX -->
-<div id="boxReferral" class="hlBox" style="border:2px solid #22c55e;background:#052e16;margin-top:12px">
-<b style="color:#22c55e;font-size:12px">💚 MY REFERRAL CENTER - EARN COMMISSION</b>
-<div style="color:#fff;font-size:10px;margin-top:6px;line-height:1.4">Paste YOUR partner links here. When someone registers through you, add their name in notes, verify, then tell boss to give them ID.</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>TMFX Clean Trial</title>
+<style>
+body{background:#020617;color:#fff;font-family:Arial;padding:12px;margin:0}
+.hlBox{background:#0f172a;border:1px solid #1e293b;border-radius:12px;padding:14px;margin-bottom:12px}
+input,select{width:100%;padding:12px;border-radius:8px;background:#020617;border:1px solid #334155;color:#fff;margin-top:6px;box-sizing:border-box}
+label{font-size:11px;color:#94a3b8;font-weight:bold}
+.btnGreen{width:100%;padding:14px;background:#22c55e;color:#000;font-weight:bold;border-radius:10px;border:0;margin-top:10px}
+.lockBox{background:#450a0a;border:1px solid #ef4444;color:#fca5a5;padding:12px;border-radius:8px;text-align:center;margin-top:10px;display:none;font-size:11px}
+</style>
+</head>
+<body>
+<div style="max-width:420px;margin:auto">
+<h3 style="text-align:center;color:#22c55e">🛡️ TMFX V4.6.0 - CLEAN TRIAL<br><span style="font-size:11px;color:#94a3b8">EURUSD ONLY | No Links Inside</span></h3>
 
-<div style="margin-top:10px"><label style="color:#22c55e">YOUR HEADWAY PARTNER LINK</label>
-<input id="myHeadwayLink" type="text" placeholder="https://headway.partners/promo/...hwp=YOUR_CODE" style="border:1px solid #22c55e"></div>
+<div class="hlBox" style="border:1px dashed #22c55e">
+<b style="color:#22c55e">💎 you need to test this super amazing fx calculator</b>
+<div style="font-size:11px;color:#fff;margin-top:6px">There's almost nothing compared to it at the moment. I assure you, you will like it</div>
+<div style="font-size:10px;color:#94a3b8;margin-top:8px">This clean version has NO Headway, NO Exness, NO WhatsApp links. Only EURUSD works. To unlock ALL pairs, contact the person who sent you this link.</div>
+</div>
 
-<div style="margin-top:8px"><label style="color:#60a5fa">YOUR EXNESS PARTNER LINK</label>
-<input id="myExnessLink" type="text" placeholder="https://one.exnessonelink.com/a/YOUR_CODE" style="border:1px solid #3b82f6"></div>
+<div class="hlBox">
+<label>BALANCE ($)</label><input id="bal" type="number" value="100">
+<label style="margin-top:8px;display:block">RISK %</label><input id="risk" type="number" value="2">
+<label style="margin-top:8px;display:block">PAIR</label>
+<select id="pair" onchange="checkLock()">
+<option value="EURUSD">EURUSD ✅ WORKING</option>
+<option value="GBPUSD">GBPUSD 🔒 LOCKED</option>
+<option value="XAUUSD">XAUUSD Gold 🔒 LOCKED</option>
+<option value="BTCUSD">BTCUSD 🔒 LOCKED</option>
+</select>
+<div id="lockMsg" class="lockBox">🔒 LOCKED - Only EURUSD works in clean trial. Contact referrer to unlock ALL pairs.</div>
+</div>
 
-<div style="margin-top:8px"><label style="color:#fbbf24">MY REFERRALS - NOTES / FEEDBACK / VERIFICATION</label>
-<textarea id="myReferralNotes" rows="4" placeholder="Example:&#10;1. John - 090... - registered Headway 18/08 - verified screenshot - waiting ID&#10;2. Sarah - registered Exness - sent to boss" style="width:100%;background:#020b1a;border:1px solid #fbbf24;color:#fff;padding:10px;border-radius:8px;font-size:11px"></textarea></div>
-
-<button class="btnGreen" onclick="saveMyReferralLinks()">💾 SAVE MY LINKS & NOTES</button>
-<div id="myReferralStatus" style="text-align:center;font-size:10px;margin-top:6px;color:#7aa3c7"></div>
-
-<div id="myShareBox" class="hidden" style="margin-top:12px;padding:12px;background:#000;border:1px dashed #22c55e;border-radius:8px">
-<b style="color:#22c55e;font-size:11px">YOUR PERSONAL SHARE MESSAGE:</b>
-<div id="myShareText" style="color:#fff;font-size:10px;margin-top:8px;white-space:pre-wrap;line-height:1.5;background:#081428;padding:10px;border-radius:6px"></div>
-<button class="btnWhats" onclick="shareMyReferralTrial()">📱 SHARE MY TRIAL WITH MY LINKS</button>
+<div class="hlBox">
+<label>STOP LOSS</label><input id="sl" type="number" value="50">
+<button class="btnGreen" onclick="calc()">⚡ CALCULATE</button>
+<div style="background:#000;padding:15px;border-radius:8px;margin-top:12px;text-align:center;border:1px solid #22c55e">
+<div id="rLot" style="font-size:22px;font-weight:bold">0.00 lot</div>
+<div id="rInfo" style="font-size:10px;color:#64748b;margin-top:6px">EURUSD only in clean trial</div>
 </div>
 </div>
-
+</div>
 <script>
-function saveMyReferralLinks(){
- let h = document.getElementById('myHeadwayLink').value.trim();
- let e = document.getElementById('myExnessLink').value.trim();
- let n = document.getElementById('myReferralNotes').value.trim();
- if(!h && !e){ alert('Paste at least one partner link'); return; }
- localStorage.setItem('tmfx_my_headway', h);
- localStorage.setItem('tmfx_my_exness', e);
- localStorage.setItem('tmfx_my_notes', n);
- document.getElementById('myReferralStatus').innerText = '✅ Saved on this device!';
- document.getElementById('myReferralStatus').style.color = '#22c55e';
- showMyShareMessage();
-}
-function loadMyReferralLinks(){
- let h = localStorage.getItem('tmfx_my_headway')||'';
- let e = localStorage.getItem('tmfx_my_exness')||'';
- let n = localStorage.getItem('tmfx_my_notes')||'';
- document.getElementById('myHeadwayLink').value = h;
- document.getElementById('myExnessLink').value = e;
- document.getElementById('myReferralNotes').value = n;
- if(h||e) showMyShareMessage();
-}
-function showMyShareMessage(){
- let h = document.getElementById('myHeadwayLink').value.trim() || localStorage.getItem('tmfx_my_headway')||'[YOUR HEADWAY LINK]';
- let e = document.getElementById('myExnessLink').value.trim() || localStorage.getItem('tmfx_my_exness')||'[YOUR EXNESS LINK]';
- let msg = `🔥 TMFX V4.6.0 SAFE CALCULATOR - FREE TRIAL\n\nI use this to calculate safe lot size (95% safe) for Gold, Forex, Crypto!\n\n👉 To get FULL Version FREE, register with my links below:\n\n✅ Headway $150 Bonus: ${h}\n✅ Exness Fast: ${e}\n\nAfter registration, send me screenshot + your desired ID. I will verify and our boss will send you FULL unlock ID!\n\nPowered by TMFX - Safe Traders Only ⚡`;
- document.getElementById('myShareText').innerText = msg;
- document.getElementById('myShareBox').classList.remove('hidden');
-}
-function shareMyReferralTrial(){
- let txt = document.getElementById('myShareText').innerText;
- window.open("https://api.whatsapp.com/send?text="+encodeURIComponent(txt), "_blank");
-}
-// load on start
-setTimeout(loadMyReferralLinks, 800);
+function checkLock(){document.getElementById('lockMsg').style.display=document.getElementById('pair').value!=='EURUSD'?'block':'none'}
+function calc(){if(document.getElementById('pair').value!=='EURUSD'){alert('Only EURUSD in clean trial');checkLock();return}let b=parseFloat(document.getElementById('bal').value)||0;let r=parseFloat(document.getElementById('risk').value)||0;let s=parseFloat(document.getElementById('sl').value)||1;let lot=(b*r/100*0.95)/(s*10);if(lot<0.01)lot=0.01;document.getElementById('rLot').innerText=lot.toFixed(2)+' lot';document.getElementById('rInfo').innerText='EURUSD ONLY | $'+b+' | '+r+'%'}
 </script>
+</body>
+</html>
