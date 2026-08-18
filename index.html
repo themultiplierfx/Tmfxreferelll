@@ -1,0 +1,60 @@
+<!-- REPLACE YOUR FULL VERSION WITH THIS - ADDED REFERRAL BOX -->
+<div id="boxReferral" class="hlBox" style="border:2px solid #22c55e;background:#052e16;margin-top:12px">
+<b style="color:#22c55e;font-size:12px">💚 MY REFERRAL CENTER - EARN COMMISSION</b>
+<div style="color:#fff;font-size:10px;margin-top:6px;line-height:1.4">Paste YOUR partner links here. When someone registers through you, add their name in notes, verify, then tell boss to give them ID.</div>
+
+<div style="margin-top:10px"><label style="color:#22c55e">YOUR HEADWAY PARTNER LINK</label>
+<input id="myHeadwayLink" type="text" placeholder="https://headway.partners/promo/...hwp=YOUR_CODE" style="border:1px solid #22c55e"></div>
+
+<div style="margin-top:8px"><label style="color:#60a5fa">YOUR EXNESS PARTNER LINK</label>
+<input id="myExnessLink" type="text" placeholder="https://one.exnessonelink.com/a/YOUR_CODE" style="border:1px solid #3b82f6"></div>
+
+<div style="margin-top:8px"><label style="color:#fbbf24">MY REFERRALS - NOTES / FEEDBACK / VERIFICATION</label>
+<textarea id="myReferralNotes" rows="4" placeholder="Example:&#10;1. John - 090... - registered Headway 18/08 - verified screenshot - waiting ID&#10;2. Sarah - registered Exness - sent to boss" style="width:100%;background:#020b1a;border:1px solid #fbbf24;color:#fff;padding:10px;border-radius:8px;font-size:11px"></textarea></div>
+
+<button class="btnGreen" onclick="saveMyReferralLinks()">💾 SAVE MY LINKS & NOTES</button>
+<div id="myReferralStatus" style="text-align:center;font-size:10px;margin-top:6px;color:#7aa3c7"></div>
+
+<div id="myShareBox" class="hidden" style="margin-top:12px;padding:12px;background:#000;border:1px dashed #22c55e;border-radius:8px">
+<b style="color:#22c55e;font-size:11px">YOUR PERSONAL SHARE MESSAGE:</b>
+<div id="myShareText" style="color:#fff;font-size:10px;margin-top:8px;white-space:pre-wrap;line-height:1.5;background:#081428;padding:10px;border-radius:6px"></div>
+<button class="btnWhats" onclick="shareMyReferralTrial()">📱 SHARE MY TRIAL WITH MY LINKS</button>
+</div>
+</div>
+
+<script>
+function saveMyReferralLinks(){
+ let h = document.getElementById('myHeadwayLink').value.trim();
+ let e = document.getElementById('myExnessLink').value.trim();
+ let n = document.getElementById('myReferralNotes').value.trim();
+ if(!h && !e){ alert('Paste at least one partner link'); return; }
+ localStorage.setItem('tmfx_my_headway', h);
+ localStorage.setItem('tmfx_my_exness', e);
+ localStorage.setItem('tmfx_my_notes', n);
+ document.getElementById('myReferralStatus').innerText = '✅ Saved on this device!';
+ document.getElementById('myReferralStatus').style.color = '#22c55e';
+ showMyShareMessage();
+}
+function loadMyReferralLinks(){
+ let h = localStorage.getItem('tmfx_my_headway')||'';
+ let e = localStorage.getItem('tmfx_my_exness')||'';
+ let n = localStorage.getItem('tmfx_my_notes')||'';
+ document.getElementById('myHeadwayLink').value = h;
+ document.getElementById('myExnessLink').value = e;
+ document.getElementById('myReferralNotes').value = n;
+ if(h||e) showMyShareMessage();
+}
+function showMyShareMessage(){
+ let h = document.getElementById('myHeadwayLink').value.trim() || localStorage.getItem('tmfx_my_headway')||'[YOUR HEADWAY LINK]';
+ let e = document.getElementById('myExnessLink').value.trim() || localStorage.getItem('tmfx_my_exness')||'[YOUR EXNESS LINK]';
+ let msg = `🔥 TMFX V4.6.0 SAFE CALCULATOR - FREE TRIAL\n\nI use this to calculate safe lot size (95% safe) for Gold, Forex, Crypto!\n\n👉 To get FULL Version FREE, register with my links below:\n\n✅ Headway $150 Bonus: ${h}\n✅ Exness Fast: ${e}\n\nAfter registration, send me screenshot + your desired ID. I will verify and our boss will send you FULL unlock ID!\n\nPowered by TMFX - Safe Traders Only ⚡`;
+ document.getElementById('myShareText').innerText = msg;
+ document.getElementById('myShareBox').classList.remove('hidden');
+}
+function shareMyReferralTrial(){
+ let txt = document.getElementById('myShareText').innerText;
+ window.open("https://api.whatsapp.com/send?text="+encodeURIComponent(txt), "_blank");
+}
+// load on start
+setTimeout(loadMyReferralLinks, 800);
+</script>
